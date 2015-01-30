@@ -41,7 +41,8 @@ INSTALLED_APPS = (
     'django.contrib.postgres',
 
     'pooltest',
-    'fieldstest'
+    'fieldstest',
+    'searchtest'
 )
 
 MIDDLEWARE_CLASSES = (
