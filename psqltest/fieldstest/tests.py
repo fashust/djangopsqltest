@@ -1,7 +1,7 @@
 from django.test import TestCase
 from psycopg2.extras import NumericRange
 
-from .models import Event, Post, Location
+from .models import Event, Post, Location, MyJson
 
 
 class EventTest(TestCase):
@@ -75,3 +75,18 @@ class HstoreTest(TestCase):
                 'timezone': 'any'
             })])
         # >> [u'Minsk']
+
+
+class JsonbTest(TestCase):
+
+    def test_jsonfield(self):
+        MyJson.objects.create(json={'a': 1, 'b': {'c': 2, 'd': 3}})
+        MyJson.objects.create(json={'d': 3, 'b': {'c': 4, 'f': 5}})
+
+        print([m.json for m in
+               MyJson.objects.filter(json__has_all=['a', 'b'])])
+        # >> [{u'a': 1, u'b': {u'c': 2, u'd': 3}}]
+
+        print([m.json for m in
+               MyJson.objects.filter(json__path_b_c__gt=2)])
+        # >> [{u'b': {u'c': 4, u'f': 5}, u'd': 3}]

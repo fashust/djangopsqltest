@@ -1,6 +1,8 @@
 from django.contrib.postgres import fields
 from django.db import models
 
+from postgres.fields import json_field
+
 
 class Event(models.Model):
     name = models.CharField(max_length=50)
@@ -15,3 +17,7 @@ class Post(models.Model):
 class Location(models.Model):
     name = models.CharField(max_length=50)
     location = fields.hstore.HStoreField()
+
+
+class MyJson(models.Model):
+    json = json_field.JSONField()
