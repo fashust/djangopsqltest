@@ -1,7 +1,7 @@
 from django.test import TestCase
 from psycopg2.extras import NumericRange
 
-from .models import Event
+from .models import Event, Post
 
 
 class EventTest(TestCase):
@@ -36,3 +36,18 @@ class EventTest(TestCase):
         print([e.name for e in events])
         # >> [u'Meetup']
         print("--------------")
+
+
+class ArrayTest(TestCase):
+
+    def test_array(self):
+        # create
+        Post.objects.create(name='First post', tags=['thoughts', 'django'])
+        Post.objects.create(name='Second post', tags=['thoughts'])
+        Post.objects.create(name='Third post', tags=['tutorial', 'django'])
+
+        print([p.name for p in Post.objects.filter(tags__contains=['django'])])
+        # >> [u'First post', u'Third post']
+        print([p.name for p in Post.objects.filter(
+            tags__contains=['django', 'thoughts'])])
+        # >> [u'First post']
