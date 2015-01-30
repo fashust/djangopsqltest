@@ -1,7 +1,7 @@
 from django.test import TestCase
 from psycopg2.extras import NumericRange
 
-from .models import Event, Post
+from .models import Event, Post, Location
 
 
 class EventTest(TestCase):
@@ -51,3 +51,27 @@ class ArrayTest(TestCase):
         print([p.name for p in Post.objects.filter(
             tags__contains=['django', 'thoughts'])])
         # >> [u'First post']
+
+
+class HstoreTest(TestCase):
+
+    def test_hstore(self):
+        # create
+        Location.objects.create(
+            name='Minsk', location={'lat': '53.900000000000000000',
+                                    'long': '27.566666700000040000'})
+        Location.objects.create(
+            name='Kyiv', location={'lat': '50.450100000000000000',
+                                   'long': '30.523400000000038000'})
+
+        print([l.name for l in Location.objects.filter(
+            location__lat__contains='50')])
+        # >> [u'Kyiv']
+
+        print([l.name for l in Location.objects.filter(
+            location__contained_by={
+                'lat': '53.900000000000000000',
+                'long': '27.566666700000040000',
+                'timezone': 'any'
+            })])
+        # >> [u'Minsk']
