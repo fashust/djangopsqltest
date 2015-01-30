@@ -1,0 +1,3 @@
+psycopg2
+
+-e git+https://github.com/django/django.git@stable/1.8.x#egg=django
