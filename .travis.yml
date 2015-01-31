@@ -15,5 +15,6 @@ install: pip install -r requirements.txt
 
 # command to run tests, e.g. python setup.py test
 before_script:
+  - psql -d template1 -c 'create extension hstore;' -U postgres
   - psql -c 'create database psqltest;' -U postgres
 script: cd psqltest;python manage.py test
