@@ -11,7 +11,7 @@ class Page(models.Model):
 
     objects = SearchManager(
         fields=('name', 'description'),
-        config='pg_catalog.english',
+        config='pg_catalog.russian',
         search_field='search_index',
         auto_update_search_field = True
     )
