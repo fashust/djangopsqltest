@@ -42,7 +42,8 @@ INSTALLED_APPS = (
 
     'pooltest',
     'fieldstest',
-    'searchtest'
+    'searchtest',
+    'bookingexample'
 )
 
 MIDDLEWARE_CLASSES = (
