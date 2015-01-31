@@ -23,3 +23,5 @@ class BookingTest(TestCase):
         print([b for b in Booking.objects.filter(
             dates__overlap=DateRange(date2, date2 + day, bounds='[)'))])
         # >> [<Booking: Booking object>]
+        assert len(Booking.objects.filter(
+            dates__overlap=DateRange(date2, date2 + day, bounds='[)'))) == 1

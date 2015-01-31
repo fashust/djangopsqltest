@@ -9,5 +9,9 @@ class SearchTest(TestCase):
     def test_search(self):
         Page.objects.create(name='Главная', description='главная')
         Page.objects.create(name='неглавная', description='неглавная')
-        print(Page.objects.search("главная"))
-        print(Page.objects.search(query="главное | неглавное", raw=True))
+        pages = Page.objects.search("главная")
+        print(pages)
+        assert len(pages) == 1
+        pages = Page.objects.search(query="главное | неглавное", raw=True)
+        print(pages)
+        assert len(pages) == 2
