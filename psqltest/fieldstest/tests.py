@@ -66,23 +66,23 @@ class HstoreTest(TestCase):
     def test_hstore(self):
         # create
         Location.objects.create(
-            name='Minsk', location={'lat': '53.900000000000000000',
-                                    'long': '27.566666700000040000'})
+            name='Lviv', location={'lat': '49.85',
+                                   'long': '24.0166666667'})
         Location.objects.create(
-            name='Kyiv', location={'lat': '50.450100000000000000',
-                                   'long': '30.523400000000038000'})
+            name='Kyiv', location={'lat': '50.4501',
+                                   'long': '30.523400000000038'})
         locations = Location.objects.filter(location__lat__contains='50')
         print([l.name for l in locations])
         # >> [u'Kyiv']
         assert len(locations) == 1
         locations = Location.objects.filter(
             location__contained_by={
-                'lat': '53.900000000000000000',
-                'long': '27.566666700000040000',
+                'lat': '49.85',
+                'long': '24.0166666667',
                 'timezone': 'any'
             })
         print([l.name for l in locations])
-        # >> [u'Minsk']
+        # >> [u'Lviv']
         assert len(locations) == 1
 
 
